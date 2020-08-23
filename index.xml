@@ -18,17 +18,8 @@
       
       <guid>/post/2020-08-22-the-little-prince/</guid>
       <description>The Little Prince is one of my favorite books as a kid.
-The writer meets a little prince when his plane crashed into Sahara. The little prince comes from a planet far away. He has a rose that he really loves and takes care of, while a fox wants to be tamed by him. These are the two little stories in the book that touches my heart the most.</description>
-    </item>
-    
-    <item>
-      <title>Chapter I: The Grand Hall</title>
-      <link>/post/chapter-1/</link>
-      <pubDate>Sun, 09 Apr 2017 10:58:08 -0400</pubDate>
-      
-      <guid>/post/chapter-1/</guid>
-      <description>Three hundred and forty-eight years, six months, and nineteen days ago to-day, the Parisians awoke to the sound of all the bells in the triple circuit of the city, the university, and the town ringing a full peal.
-The sixth of January, 1482, is not, however, a day of which history has preserved the memory. There was nothing notable in the event which thus set the bells and the bourgeois of Paris in a ferment from early morning.</description>
+The writer meets a little prince when his plane crashed into Sahara, and he is from a planet far away. He has a rose that he really loves and takes care of, while a fox wants to be tamed by him. These are the two little stories in the book that touches my heart the most.
+The rose is silly and naive, and she exaggerates her emotions to get more attention.</description>
     </item>
     
     <item>
@@ -48,8 +39,7 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/contact/</guid>
-      <description>This is an example of a custom shortcode that you can put right into your content. You will need to add a form action to the the shortcode to make it work. Check out Formspree for a simple, free form service.
-Test out what&amp;rsquo;s happening now
+      <description>I&amp;rsquo;d love to hear from you! Please send me a message if you have any thoughts or suggestions, or just to say Hi! Just fill out the form below and I will get back to you!
 Your Name Email Address An email address is required.  Message   </description>
     </item>
     
