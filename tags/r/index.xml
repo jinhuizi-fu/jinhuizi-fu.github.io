@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blogs on We Are All Stardust</title>
-    <link>/post/</link>
-    <description>Recent content in Blogs on We Are All Stardust</description>
+    <title>R on We Are All Stardust</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Mar 2017 12:00:00 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2020 10:30:00 -0500</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,16 +18,6 @@
       
       <guid>/post/2020-08-25-spotify-analysis-1/</guid>
       <description>I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it.</description>
-    </item>
-    
-    <item>
-      <title>Some thoughts after reading the Little Prince</title>
-      <link>/post/2020-08-22-the-little-prince/</link>
-      <pubDate>Sat, 22 Aug 2020 14:30:00 -0500</pubDate>
-      
-      <guid>/post/2020-08-22-the-little-prince/</guid>
-      <description>The Little Prince is one of my favorite books as a kid.
-The writer meets a little prince when his plane crashed into Sahara, and the little prince is from a planet far away. He has a rose that he really loves and takes care of, while a fox wants to be tamed by him. These are the two little stories in the book that touches my heart the most.</description>
     </item>
     
   </channel>

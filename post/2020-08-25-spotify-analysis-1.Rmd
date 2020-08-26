@@ -1,0 +1,102 @@
+---
+title: "Spotify Analysis 1 - the Beatles"
+author: "Jinhuizi Fu"
+date: 2020-08-26T10:30:00-05:00
+output: html_document
+categories: ["data science"]
+tags: ["data science", "R", "Spotify", "music"]
+---
+
+I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who's passionate about mining data and discover the story underneath, what's great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it.
+
+So let's get started!
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+library(spotifyr)
+#library(tidyverse)
+#library(knitr)
+#library(kableExtra)
+#library(ggridges)
+#library(plotly)
+#library(scales)
+#library(ggfortify)
+#library(ggdendro)
+#library(dendextend)
+#library(ggplot2)
+
+# https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1
+# devtools::install_github('charlie86/spotifyr')
+
+Sys.setenv(SPOTIFY_CLIENT_ID = 'xxx')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'xxx')
+
+```
+
+### Connect to Spotify API and download data
+
+1. set up a Dev account with Spotify to access their Web API: <https://developer.spotify.com/my-applications/#!/applications>
+
+2. Once get a client ID and client secret, we can start downloading data we're interested in. For people who know me, my favourite band is **the Beatles**, and I get to learn more about this band when I attended University of Liverpool. The band absolutely means a lot to me and let's start the analysis with the Beatles!
+
+(Pull the Beatles dataset from Spotiyf API)
+
+```{r beatles, message=FALSE, warning=FALSE}
+library(spotifyr)
+
+access_token <- get_spotify_access_token()
+beatles <- get_artist_audio_features('the beatles')
+```
+
+#### Check which key is most used in the Beatles' songs
+
+```{r myself, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+beatles %>% 
+    count(key_mode, sort = TRUE) %>% 
+    head(5) %>% 
+    kable()
+
+```
+
+#### What's the happiest the Beatles song?
+
+Spotify's valance feature is a measurement of positiveness in a song, measured between 0 and 1, higher being happier. Let's take a look at the 139 songs with this feature from the dataset:
+
+```{r joyful, message=FALSE, warning=FALSE}
+beatles %>% 
+    arrange(-valence) %>% 
+    select(track_name, valence) %>% 
+    head(5) %>% 
+    kable()
+```
+
+#### What is the joy distribution for each of the Beatles' albums?
+
+There are 3 Beatles albums in the dataset, let's look at the joy distribution of each albums.
+
+```{r joy dist, message=FALSE, warning=FALSE}
+library(ggjoy)
+
+ggplot(beatles, aes(x = valence, y = album_name)) + 
+    geom_joy() + 
+    theme_joy() +
+    ggtitle("the Beatles's albums joy distributions", subtitle = "Based on valence pulled from Spotify's Web API")
+
+```
+
+Looks like the Yellow Submarine soundtrack is overall the happiest, while the Beatles album has a more diversified emotion range. 
+
+
+Thanks for reading, I hope you enjoyed it!
+
+Here's a playlist of mine that I enjoy a lot, you're welcome to check it out and enjoy listening with me! https://open.spotify.com/playlist/1SQQjyidlLWU6d7sgWGTM6?si=WhecVtntTSanuuANmE_oIg
+
+### Reference:
+
+{spotifyr} package documentation: https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1
+https://github.com/charlie86/spotifyr
+
+Spotify's audio features documentation: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+
