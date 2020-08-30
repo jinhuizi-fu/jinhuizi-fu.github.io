@@ -36,7 +36,7 @@
 <meta itemprop="description" content="I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it.">
 <meta itemprop="datePublished" content="2020-08-26T10:30:00-05:00" />
 <meta itemprop="dateModified" content="2020-08-26T10:30:00-05:00" />
-<meta itemprop="wordCount" content="414">
+<meta itemprop="wordCount" content="473">
 
 
 
@@ -288,6 +288,44 @@ beatles %&gt;%
 <tr class="odd">
 <td align="left">Don’t Pass Me By - 2018 Mix</td>
 <td align="right">0.961</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="whats-the-least-dancible-beatles-song" class="section level4">
+<h4>What’s the least dancible Beatles song?</h4>
+<pre class="r"><code>beatles %&gt;% 
+    arrange(danceability) %&gt;% 
+    select(track_name, danceability) %&gt;% 
+    head(5) %&gt;% 
+    kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">track_name</th>
+<th align="right">danceability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Good Night - 2018 Mix</td>
+<td align="right">0.131</td>
+</tr>
+<tr class="even">
+<td align="left">Everybody’s Trying To Be My Baby - Live / Bonus Track</td>
+<td align="right">0.191</td>
+</tr>
+<tr class="odd">
+<td align="left">Revolution 9 - 2018 Mix</td>
+<td align="right">0.193</td>
+</tr>
+<tr class="even">
+<td align="left">Roll Over Beethoven - Live / Remastered</td>
+<td align="right">0.199</td>
+</tr>
+<tr class="odd">
+<td align="left">Baby’s In Black - Live / Bonus Track</td>
+<td align="right">0.202</td>
 </tr>
 </tbody>
 </table>

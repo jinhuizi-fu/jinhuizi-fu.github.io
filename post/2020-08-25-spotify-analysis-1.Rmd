@@ -49,7 +49,7 @@ beatles <- get_artist_audio_features('the beatles')
 
 #### Check which key is most used in the Beatles' songs
 
-```{r myself, message=FALSE, warning=FALSE}
+```{r key, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(knitr)
 
@@ -71,6 +71,18 @@ beatles %>%
     head(5) %>% 
     kable()
 ```
+
+#### What's the least dancible Beatles song?
+
+```{r danceable, message=FALSE, warning=FALSE}
+
+beatles %>% 
+    arrange(danceability) %>% 
+    select(track_name, danceability) %>% 
+    head(5) %>% 
+    kable()
+```
+
 
 #### What is the joy distribution for each of the Beatles' albums?
 
