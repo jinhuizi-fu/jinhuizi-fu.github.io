@@ -6,10 +6,20 @@
     <description>Recent content in R on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2020 10:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2020 10:30:00 -0500</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spotify Analysis 2 - Music I listen To</title>
+      <link>/post/2020-09-02-spotify-analysis-2/</link>
+      <pubDate>Wed, 02 Sep 2020 10:30:00 -0500</pubDate>
+      
+      <guid>/post/2020-09-02-spotify-analysis-2/</guid>
+      <description>In my last post, I downloaded the track features of the Beatles’ songs from Spotify web API, and did some basic mining on it. We looked at the keys the Beatles used most, happiest songs, most danceable songs, the distribution of happiness and liveness of each album. It was fun stuff!
+In this new post, I’m going to explore a little more. Not the Beatles though, today I’m going to take a look at my own listening habits!</description>
+    </item>
     
     <item>
       <title>Spotify Analysis 1 - the Beatles</title>

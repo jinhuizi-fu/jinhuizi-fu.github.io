@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>Spotify Analysis 1 - the Beatles | We Are All Stardust</title>
+    <title>Spotify Analysis 2 - Music I listen To | We Are All Stardust</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="generator" content="Hugo 0.74.3" />
     
@@ -26,24 +26,27 @@
 
     
     
-    <meta property="og:title" content="Spotify Analysis 1 - the Beatles" />
-<meta property="og:description" content="I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it." />
+    <meta property="og:title" content="Spotify Analysis 2 - Music I listen To" />
+<meta property="og:description" content="In my last post, I downloaded the track features of the Beatles’ songs from Spotify web API, and did some basic mining on it. We looked at the keys the Beatles used most, happiest songs, most danceable songs, the distribution of happiness and liveness of each album. It was fun stuff!
+In this new post, I’m going to explore a little more. Not the Beatles though, today I’m going to take a look at my own listening habits!" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/2020-08-25-spotify-analysis-1/" />
-<meta property="article:published_time" content="2020-08-26T10:30:00-05:00" />
-<meta property="article:modified_time" content="2020-08-26T10:30:00-05:00" />
-<meta itemprop="name" content="Spotify Analysis 1 - the Beatles">
-<meta itemprop="description" content="I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it.">
-<meta itemprop="datePublished" content="2020-08-26T10:30:00-05:00" />
-<meta itemprop="dateModified" content="2020-08-26T10:30:00-05:00" />
-<meta itemprop="wordCount" content="515">
+<meta property="og:url" content="/post/2020-09-02-spotify-analysis-2/" />
+<meta property="article:published_time" content="2020-09-02T10:30:00-05:00" />
+<meta property="article:modified_time" content="2020-09-02T10:30:00-05:00" />
+<meta itemprop="name" content="Spotify Analysis 2 - Music I listen To">
+<meta itemprop="description" content="In my last post, I downloaded the track features of the Beatles’ songs from Spotify web API, and did some basic mining on it. We looked at the keys the Beatles used most, happiest songs, most danceable songs, the distribution of happiness and liveness of each album. It was fun stuff!
+In this new post, I’m going to explore a little more. Not the Beatles though, today I’m going to take a look at my own listening habits!">
+<meta itemprop="datePublished" content="2020-09-02T10:30:00-05:00" />
+<meta itemprop="dateModified" content="2020-09-02T10:30:00-05:00" />
+<meta itemprop="wordCount" content="664">
 
 
 
 <meta itemprop="keywords" content="data science,R,Spotify,music," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Spotify Analysis 1 - the Beatles"/>
-<meta name="twitter:description" content="I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it."/>
+<meta name="twitter:title" content="Spotify Analysis 2 - Music I listen To"/>
+<meta name="twitter:description" content="In my last post, I downloaded the track features of the Beatles’ songs from Spotify web API, and did some basic mining on it. We looked at the keys the Beatles used most, happiest songs, most danceable songs, the distribution of happiness and liveness of each album. It was fun stuff!
+In this new post, I’m going to explore a little more. Not the Beatles though, today I’m going to take a look at my own listening habits!"/>
 
 	
   </head>
@@ -159,20 +162,20 @@
   <div id="sharing" class="mt3">
 
     
-    <a href="https://www.facebook.com/sharer.php?u=/post/2020-08-25-spotify-analysis-1/" class="facebook no-underline" aria-label="share on Facebook">
+    <a href="https://www.facebook.com/sharer.php?u=/post/2020-09-02-spotify-analysis-2/" class="facebook no-underline" aria-label="share on Facebook">
       <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
 
     </a>
 
     
     
-    <a href="https://twitter.com/share?url=/post/2020-08-25-spotify-analysis-1/&amp;text=Spotify%20Analysis%201%20-%20the%20Beatles" class="twitter no-underline" aria-label="share on Twitter">
+    <a href="https://twitter.com/share?url=/post/2020-09-02-spotify-analysis-2/&amp;text=Spotify%20Analysis%202%20-%20Music%20I%20listen%20To" class="twitter no-underline" aria-label="share on Twitter">
       <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
     </a>
 
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/post/2020-08-25-spotify-analysis-1/&amp;title=Spotify%20Analysis%201%20-%20the%20Beatles" class="linkedin no-underline" aria-label="share on LinkedIn">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/post/2020-09-02-spotify-analysis-2/&amp;title=Spotify%20Analysis%202%20-%20Music%20I%20listen%20To" class="linkedin no-underline" aria-label="share on LinkedIn">
       <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
 </svg>
@@ -181,7 +184,7 @@
   </div>
 
 
-      <h1 class="f1 athelas mt3 mb1">Spotify Analysis 1 - the Beatles</h1>
+      <h1 class="f1 athelas mt3 mb1">Spotify Analysis 2 - Music I listen To</h1>
       
       <p class="tracked">
           By <strong>
@@ -192,7 +195,7 @@
       </p>
       
       
-      <time class="f6 mv4 dib tracked" datetime="2020-08-26T10:30:00-05:00">August 26, 2020</time>
+      <time class="f6 mv4 dib tracked" datetime="2020-09-02T10:30:00-05:00">September 2, 2020</time>
 
       
       
@@ -200,165 +203,219 @@
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
 
 
-<p>I absolutely love music! Spotify is my go-to app when I want to enjoy some listening. As someone who’s passionate about mining data and discover the story underneath, what’s great is that for each song, Spotify stores a list of its features such as acousticness, danceability, energy and more. Also, thanks to the {spotifyr} package by Charlie Thompson, we can easily use a web API by Spotify from which I can download very interesting data and play with it.</p>
-<p>So let’s get started!</p>
-<div id="connect-to-spotify-api-and-download-data" class="section level3">
-<h3>Connect to Spotify API and download data</h3>
-<ol style="list-style-type: decimal">
-<li><p>set up a Dev account with Spotify to access their Web API: <a href="https://developer.spotify.com/my-applications/#!/applications" class="uri">https://developer.spotify.com/my-applications/#!/applications</a></p></li>
-<li><p>Once get a client ID and client secret, we can start downloading data we’re interested in. For people who know me, my favourite band is <strong>the Beatles</strong>, and I get to learn more about this band when I attended University of Liverpool. The band absolutely means a lot to me and let’s start the analysis with the Beatles!</p></li>
-</ol>
-<p>(Pull the Beatles dataset from Spotiyf API)</p>
+<p>In my last post, I downloaded the track features of the Beatles’ songs from Spotify web API, and did some basic mining on it. We looked at the keys the Beatles used most, happiest songs, most danceable songs, the distribution of happiness and liveness of each album. It was fun stuff!</p>
+<p>In this new post, I’m going to explore a little more. Not the Beatles though, today I’m going to take a look at my own listening habits!</p>
+<div id="which-song-did-i-loved-first" class="section level3">
+<h3>Which song did I loved first?</h3>
+<p>So I have been using the Spotify app for a few years, and I have no idea which song I liked when I first started using it. Let’s check now!</p>
+<p>We need to download all the songs I saved, then sort by time added. Because there’s a 50 song limit to get my saved tracks, so we need to run in loops to get the information of all 929 of my saved songs.</p>
 <pre class="r"><code>library(spotifyr)
-
-access_token &lt;- get_spotify_access_token()
-beatles &lt;- get_artist_audio_features(&#39;the beatles&#39;)</code></pre>
-<div id="check-which-key-is-most-used-in-the-beatles-songs" class="section level4">
-<h4>Check which key is most used in the Beatles’ songs</h4>
-<pre class="r"><code>library(tidyverse)
+library(tidyverse)
 library(knitr)
+library(lubridate)
 
-beatles %&gt;% 
-    count(key_mode, sort = TRUE) %&gt;% 
-    head(5) %&gt;% 
-    kable()</code></pre>
+all_my_fav_tracks &lt;-
+  ceiling(get_my_saved_tracks(include_meta_info = TRUE)[[&#39;total&#39;]] / 50) %&gt;%
+  seq() %&gt;%
+  map(function(x) {
+    get_my_saved_tracks(limit = 50, offset = (x - 1) * 50)
+  }) %&gt;% 
+reduce(rbind) 
+
+# check first song I saved
+all_my_fav_tracks %&gt;%
+  mutate(added_at = ymd_hms(added_at)) %&gt;%
+  arrange(added_at) %&gt;%
+  head(1, wt = added_at) %&gt;%
+  select(track.name,added_at)  %&gt;%
+  kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">key_mode</th>
+<th align="left">track.name</th>
+<th align="left">added_at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Put Your Records On</td>
+<td align="left">2016-03-12 14:39:21</td>
+</tr>
+</tbody>
+</table>
+<p>Oh my god, my first loved song is “put your records on” in 2016!! But not too surprising though, Corinne Bailey Rae is adorable and I do love her ❤️.</p>
+</div>
+<div id="who-is-my-favourite-artist---recently" class="section level3">
+<h3>Who is my favourite artist - recently?</h3>
+<pre class="r"><code># my all time favourite artists
+get_my_top_artists_or_tracks(type = &#39;artists&#39;, time_range = &#39;short_term&#39;, limit = 5) %&gt;% 
+  select(name, genres) %&gt;% 
+  rowwise %&gt;% 
+  mutate(genres = paste(genres, collapse = &#39;, &#39;)) %&gt;% 
+  ungroup %&gt;% 
+  kable()</code></pre>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">genres</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Corinne Bailey Rae</td>
+<td align="left">british soul, neo mellow, neo soul, soul</td>
+</tr>
+<tr class="even">
+<td align="left">Lana Del Rey</td>
+<td align="left">art pop, pop</td>
+</tr>
+<tr class="odd">
+<td align="left">Katie Melua</td>
+<td align="left">uk pop, vocal jazz</td>
+</tr>
+<tr class="even">
+<td align="left">Radiohead</td>
+<td align="left">alternative rock, art rock, melancholia, oxford indie, permanent wave, rock</td>
+</tr>
+<tr class="odd">
+<td align="left">Norah Jones</td>
+<td align="left">contemporary vocal jazz, neo mellow</td>
+</tr>
+</tbody>
+</table>
+<p><em>Yeah, I’m quite a mellow person.</em></p>
+</div>
+<div id="my-all-time-favourite-tracks---in-medium-terms" class="section level3">
+<h3>My all time favourite tracks - in medium terms?</h3>
+<pre class="r"><code>get_my_top_artists_or_tracks(type = &#39;tracks&#39;, time_range = &#39;medium_term&#39;, limit = 5) %&gt;% 
+  mutate(artist.name = map_chr(artists, function(x) x$name[1])) %&gt;% 
+  select(name, artist.name, album.name) %&gt;% 
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">artist.name</th>
+<th align="left">album.name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">blame it on the moon</td>
+<td align="left">Katie Melua</td>
+<td align="left">Call Off The Search</td>
+</tr>
+<tr class="even">
+<td align="left">Rêverie</td>
+<td align="left">Claude Debussy</td>
+<td align="left">Debussy: Estampes, Pour le piano, Piano Works</td>
+</tr>
+<tr class="odd">
+<td align="left">Love song</td>
+<td align="left">Lana Del Rey</td>
+<td align="left">Norman Fucking Rockwell!</td>
+</tr>
+<tr class="even">
+<td align="left">West Coast</td>
+<td align="left">Lana Del Rey</td>
+<td align="left">Ultraviolence (Deluxe)</td>
+</tr>
+<tr class="odd">
+<td align="left">Souvenir</td>
+<td align="left">Franz Drdla</td>
+<td align="left">Violin My Love</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="analysis-on-playlists-i-own-or-follow" class="section level3">
+<h3>Analysis on playlists I own or follow</h3>
+<p>Download playlists &amp; their information I own or follow:</p>
+<pre class="r"><code># my playlists - pick 4 for fun
+my_plists &lt;- get_user_playlists(username, limit=50)
+my_plists2 &lt;- my_plists %&gt;% filter(name %in% c(&#39;Funky Heavy Bluesy&#39;, &#39;Legendary&#39;, &#39;Walk Like A Badass&#39;, &#39;Ultimate Indie&#39;))
+
+# get track features in each playlist
+playlist_id &lt;- my_plists2$id 
+pl_feature &lt;- get_playlist_audio_features(username, playlist_id)</code></pre>
+<p>The 4 playlists I picked are actually created by Spotify. They are all really fun playlists to listen to, but what’s similar and what’s different?</p>
+<p>First let’s look at:</p>
+<ul>
+<li>The number of tracks in each playlist</li>
+<li>Mean values of valence, energy, and tempo</li>
+</ul>
+<pre class="r"><code>pl_feature %&gt;% 
+  group_by(playlist_name) %&gt;% 
+  summarise(n = n(),
+            mean_valance = mean(valence), 
+            mean_energy = mean(energy),
+            mean_tempo = mean(tempo)) %&gt;% 
+  kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">playlist_name</th>
 <th align="right">n</th>
+<th align="right">mean_valance</th>
+<th align="right">mean_energy</th>
+<th align="right">mean_tempo</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">D major</td>
-<td align="right">24</td>
+<td align="left">Funky Heavy Bluesy</td>
+<td align="right">62</td>
+<td align="right">0.6806613</td>
+<td align="right">0.8328387</td>
+<td align="right">121.2375</td>
 </tr>
 <tr class="even">
-<td align="left">G major</td>
-<td align="right">21</td>
+<td align="left">Legendary</td>
+<td align="right">70</td>
+<td align="right">0.5999429</td>
+<td align="right">0.6159857</td>
+<td align="right">122.4513</td>
 </tr>
 <tr class="odd">
-<td align="left">A major</td>
-<td align="right">13</td>
+<td align="left">Ultimate Indie</td>
+<td align="right">99</td>
+<td align="right">0.5128313</td>
+<td align="right">0.6156364</td>
+<td align="right">122.0434</td>
 </tr>
 <tr class="even">
-<td align="left">F major</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">C major</td>
-<td align="right">11</td>
+<td align="left">Walk Like A Badass</td>
+<td align="right">50</td>
+<td align="right">0.5081800</td>
+<td align="right">0.8167600</td>
+<td align="right">125.6151</td>
 </tr>
 </tbody>
 </table>
+<p>“Funky Heavy Bluesy” is the happiest, most energetic, and slowest of the 4, on average :)</p>
 </div>
-<div id="whats-the-happiest-the-beatles-song" class="section level4">
-<h4>What’s the happiest the Beatles song?</h4>
-<p>Spotify’s valance feature is a measurement of positiveness in a song, measured between 0 and 1, higher being happier. Let’s take a look at the 139 songs with this feature from the dataset:</p>
-<pre class="r"><code>beatles %&gt;% 
-    arrange(-valence) %&gt;% 
-    select(track_name, valence) %&gt;% 
-    head(5) %&gt;% 
-    kable()</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">track_name</th>
-<th align="right">valence</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Ob-La-Di, Ob-La-Da - 2018 Mix</td>
-<td align="right">0.969</td>
-</tr>
-<tr class="even">
-<td align="left">Birthday - 2018 Mix</td>
-<td align="right">0.964</td>
-</tr>
-<tr class="odd">
-<td align="left">Polythene Pam - Esher Demo</td>
-<td align="right">0.963</td>
-</tr>
-<tr class="even">
-<td align="left">Ob-La-Di, Ob-La-Da - Take 3</td>
-<td align="right">0.962</td>
-</tr>
-<tr class="odd">
-<td align="left">Don’t Pass Me By - 2018 Mix</td>
-<td align="right">0.961</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="whats-the-most-dancible-beatles-song" class="section level4">
-<h4>What’s the most dancible Beatles song?</h4>
-<pre class="r"><code>beatles %&gt;% 
-    arrange(-danceability) %&gt;% 
-    select(track_name, danceability) %&gt;% 
-    head(5) %&gt;% 
-    kable()</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">track_name</th>
-<th align="right">danceability</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Step Inside Love - Studio Jam</td>
-<td align="right">0.807</td>
-</tr>
-<tr class="even">
-<td align="left">Ob-La-Di, Ob-La-Da - 2018 Mix</td>
-<td align="right">0.803</td>
-</tr>
-<tr class="odd">
-<td align="left">Glass Onion - Take 10</td>
-<td align="right">0.803</td>
-</tr>
-<tr class="even">
-<td align="left">Why Don’t We Do It In The Road? - Take 5</td>
-<td align="right">0.784</td>
-</tr>
-<tr class="odd">
-<td align="left">I Will - Take 13</td>
-<td align="right">0.769</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="what-is-the-joy-distribution-for-each-of-the-beatles-albums" class="section level4">
-<h4>What is the joy distribution for each of the Beatles’ albums?</h4>
-<p>There are 3 Beatles albums in the dataset, let’s look at the joy distribution of each albums.</p>
+<div id="plot-the-distributions-of-happiness-of-each-playlist" class="section level3">
+<h3>Plot the distributions of happiness of each playlist:</h3>
 <pre class="r"><code>library(ggjoy)
 
-ggplot(beatles, aes(x = valence, y = album_name)) + 
+ggplot(pl_feature, aes(x = valence, y = playlist_name)) + 
     geom_joy() + 
     theme_joy() +
-    ggtitle(&quot;the Beatles&#39;s albums joy distributions&quot;, subtitle = &quot;Based on valence pulled from Spotify&#39;s Web API&quot;)</code></pre>
-<p><img src="/post/2020-08-25-spotify-analysis-1_files/figure-html/joy%20dist-1.png" width="672" /></p>
-<p>Looks like the Yellow Submarine soundtrack is overall the happiest, while the Beatles album has a more diversified emotion range.</p>
-</div>
-<div id="what-is-the-joy-distribution-for-each-of-the-beatles-albums-1" class="section level4">
-<h4>What is the joy distribution for each of the Beatles’ albums?</h4>
-<pre class="r"><code>ggplot(beatles, aes(x = liveness, y = album_name)) + 
-    geom_joy() + 
-    theme_joy() +
-    ggtitle(&quot;the Beatles&#39;s albums liveness distributions&quot;)</code></pre>
-<p><img src="/post/2020-08-25-spotify-analysis-1_files/figure-html/liveness%20dist-1.png" width="672" />
-So as the album name suggested, “Live at the Hollywood Bowl” has the highest liveness among the 3.</p>
-<p>Thanks for reading, I hope you enjoyed it!</p>
-<p>Here’s a playlist of mine that I enjoy a lot, you’re welcome to check it out and enjoy listening with me! <a href="https://open.spotify.com/playlist/1SQQjyidlLWU6d7sgWGTM6?si=WhecVtntTSanuuANmE_oIg" class="uri">https://open.spotify.com/playlist/1SQQjyidlLWU6d7sgWGTM6?si=WhecVtntTSanuuANmE_oIg</a></p>
-</div>
+    ggtitle(&quot;the playlists&#39; joy distributions&quot;, subtitle = &quot;Based on valence pulled from Spotify&#39;s Web API&quot;)</code></pre>
+<p><img src="/post/2020-09-02-spotify-analysis-2_files/figure-html/playlist%20joy%20dist-1.png" width="672" /></p>
+<p>Thanks for reading, and again, I hope you enjoyed it!</p>
+<p>Here’s another playlist of mine that I enjoy a lot, and the songs in this playlist all reminds me of love. As usual, you’re welcome to check it out and enjoy listening with me! <a href="https://open.spotify.com/playlist/1AMYjwpMepBksGbXXX1GFJ?si=2OWuTA4kTO6wgYtRbhJVfQ" class="uri">https://open.spotify.com/playlist/1AMYjwpMepBksGbXXX1GFJ?si=2OWuTA4kTO6wgYtRbhJVfQ</a></p>
 </div>
 <div id="reference" class="section level3">
 <h3>Reference:</h3>
 <p>{spotifyr} package documentation: <a href="https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1" class="uri">https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1</a>
 <a href="https://github.com/charlie86/spotifyr" class="uri">https://github.com/charlie86/spotifyr</a></p>
-<p>Spotify’s audio features documentation: <a href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/" class="uri">https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/</a></p>
+<p>{spotifyr} function references: <a href="https://www.rcharlie.com/spotifyr/reference/index.html" class="uri">https://www.rcharlie.com/spotifyr/reference/index.html</a></p>
 </div>
 <ul class="pa0">
   
@@ -389,6 +446,17 @@ So as the album name suggested, “Live at the Hollywood Bowl” has the highest
 
 
 
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/2020-08-25-spotify-analysis-1/">Spotify Analysis 1 - the Beatles</a>
+        </li>
+	    
+    </ul>
+</div>
 
 </aside>
 
