@@ -6,10 +6,19 @@
     <description>Recent content in Tags on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 10:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2020 10:30:00 -0500</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>thoughts</title>
+      <link>/tags/thoughts/</link>
+      <pubDate>Tue, 08 Sep 2020 10:30:00 -0500</pubDate>
+      
+      <guid>/tags/thoughts/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>data science</title>
@@ -53,15 +62,6 @@
       <pubDate>Sat, 22 Aug 2020 14:30:00 -0500</pubDate>
       
       <guid>/tags/book/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>thoughts</title>
-      <link>/tags/thoughts/</link>
-      <pubDate>Sat, 22 Aug 2020 14:30:00 -0500</pubDate>
-      
-      <guid>/tags/thoughts/</guid>
       <description></description>
     </item>
     

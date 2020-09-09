@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>thoughts on We Are All Stardust</title>
-    <link>/tags/thoughts/</link>
+    <link>/categories/thoughts/</link>
     <description>Recent content in thoughts on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Sep 2020 10:30:00 -0500</lastBuildDate>
     
-	<atom:link href="/tags/thoughts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/thoughts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>I’ve just started to study a course on Coursera called “Buddhism and Modern Psychology”. I find it very interesting. The purpose of the course is not all about religion, but rather with the help of buddhism and modern psychology, how to find happiness and peace in life.
 The first topic is about the 4 noble truths:
 the truth of suffering the cause of suffering the cessation of suffering the Noble Eightfold Path  Here are some points from the course that I find interesting:</description>
-    </item>
-    
-    <item>
-      <title>Some thoughts after reading the Little Prince</title>
-      <link>/post/2020-08-22-the-little-prince/</link>
-      <pubDate>Sat, 22 Aug 2020 14:30:00 -0500</pubDate>
-      
-      <guid>/post/2020-08-22-the-little-prince/</guid>
-      <description>The Little Prince is one of my favorite books as a kid.
-The writer meets a little prince when his plane crashed into Sahara, and the little prince is from a planet far away. He has a rose that he really loves and takes care of, while a fox wants to be tamed by him. These are the two little stories in the book that touches my heart the most.</description>
     </item>
     
   </channel>
