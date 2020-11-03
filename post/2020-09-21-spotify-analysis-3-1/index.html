@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Spotify Analysis 3.1 - What Makes a Playlist Successful? | We Are All Stardust</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+<link rel="shortcut icon" href="/images/favicon_jf.jpg" type="image/x-icon" />
+
+
+    
+
+    
+    
+    <meta property="og:title" content="Spotify Analysis 3.1 - What Makes a Playlist Successful?" />
+<meta property="og:description" content="I already wrote two posts on Spotify analysis - one on the Beatles tracks and albums, and another one for my own listening habits. I had a lot of fun doing these exploratory data analysis, and I decide to make it a trilogy. In this new post, I’m going to take one step further: I want to find out what makes a playlist successful, and try to predict how successful a playlist will be based on its known features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2020-09-21-spotify-analysis-3-1/" />
+<meta property="article:published_time" content="2020-11-02T10:30:00-05:00" />
+<meta property="article:modified_time" content="2020-11-02T10:30:00-05:00" />
+<meta itemprop="name" content="Spotify Analysis 3.1 - What Makes a Playlist Successful?">
+<meta itemprop="description" content="I already wrote two posts on Spotify analysis - one on the Beatles tracks and albums, and another one for my own listening habits. I had a lot of fun doing these exploratory data analysis, and I decide to make it a trilogy. In this new post, I’m going to take one step further: I want to find out what makes a playlist successful, and try to predict how successful a playlist will be based on its known features.">
+<meta itemprop="datePublished" content="2020-11-02T10:30:00-05:00" />
+<meta itemprop="dateModified" content="2020-11-02T10:30:00-05:00" />
+<meta itemprop="wordCount" content="1960">
+
+
+
+<meta itemprop="keywords" content="data science,R,Spotify,music," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spotify Analysis 3.1 - What Makes a Playlist Successful?"/>
+<meta name="twitter:description" content="I already wrote two posts on Spotify analysis - one on the Beatles tracks and albums, and another one for my own listening habits. I had a lot of fun doing these exploratory data analysis, and I decide to make it a trilogy. In this new post, I’m going to take one step further: I want to find out what makes a playlist successful, and try to predict how successful a playlist will be based on its known features."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        We Are All Stardust
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Blogs page">
+              Blogs
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Contact page">
+              Contact
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://www.facebook.com/fujinhuizi/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/fujinhuizi/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/jinhuizi-fu" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        BLOGS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=/post/2020-09-21-spotify-analysis-3-1/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=/post/2020-09-21-spotify-analysis-3-1/&amp;text=Spotify%20Analysis%203.1%20-%20What%20Makes%20a%20Playlist%20Successful?" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/post/2020-09-21-spotify-analysis-3-1/&amp;title=Spotify%20Analysis%203.1%20-%20What%20Makes%20a%20Playlist%20Successful?" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Spotify Analysis 3.1 - What Makes a Playlist Successful?</h1>
+      
+      <p class="tracked">
+          By <strong>
+          
+              Jinhuizi Fu
+          
+          </strong>
+      </p>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-11-02T10:30:00-05:00">November 2, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>I already wrote two posts on Spotify analysis - one on the Beatles tracks and albums, and another one for my own listening habits. I had a lot of fun doing these exploratory data analysis, and I decide to make it a trilogy. In this new post, I’m going to take one step further: I want to find out what makes a playlist successful, and try to predict how successful a playlist will be based on its known features. (Future idea may be to generate a playlist that might be successful.) Since it will be fairly long, I will split into 2 parts. Part 1 (this article) will be focusing on getting the data and EDA, part 2 will build 2 models and compare the results.</p>
+<div id="define-successful" class="section level3">
+<h3>Define “successful”</h3>
+<p>So we need to define “successful” for a playlist, and the <strong>number of followers</strong> seems like a good one to use. It’s very straightforward. (If we define “successful” this way, my most successful playlist on Spotify has 6 followers. Yay! 😂)</p>
+<p>I didn’t mention my own “success” just for fun. It was also pointing us to a direction - we need to carefully choose a sample data that has enough information for us to mine the underlying trends. In this analysis, I decided to focus on Spotify <em>featured</em> playlists, i.e. created by Spotify.</p>
+<pre class="r"><code>library(spotifyr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+# get all playlists owned by Spotify
+username = &#39;spotify&#39;
+
+.f = function() {
+# I put it in an unused function because running this will take a very long time
+spotify_pl &lt;-
+  ceiling(get_user_playlists(username, include_meta_info = TRUE)[[&#39;total&#39;]] / 50) %&gt;%
+  seq() %&gt;%
+  map(function(x) {
+    get_user_playlists(username, limit = 50, offset = (x - 1) * 50)
+  }) %&gt;% 
+  reduce(rbind) %&gt;% 
+  select(name, id, public, tracks.total, uri, href)
+}
+
+# Look at top 5 most followed playlists
+spotify_pl %&gt;% 
+  select(&quot;name&quot;, &quot;Followers&quot;, &quot;id&quot;, &quot;public&quot;) %&gt;% 
+  arrange(-Followers) %&gt;% 
+  head(5) %&gt;% 
+  kbl() %&gt;% 
+  kable_minimal()</code></pre>
+<table class=" lightable-minimal" style='font-family: "Trebuchet MS", verdana, sans-serif; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:right;">
+Followers
+</th>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:left;">
+public
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Today’s Top Hits
+</td>
+<td style="text-align:right;">
+26782716
+</td>
+<td style="text-align:left;">
+37i9dQZF1DXcBWIGoYBM5M
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Global Top 50
+</td>
+<td style="text-align:right;">
+15587459
+</td>
+<td style="text-align:left;">
+37i9dQZEVXbMDoHDwVN2tF
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RapCaviar
+</td>
+<td style="text-align:right;">
+13352529
+</td>
+<td style="text-align:left;">
+37i9dQZF1DX0XUsuxWHRQd
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+¡Viva Latino!
+</td>
+<td style="text-align:right;">
+10644136
+</td>
+<td style="text-align:left;">
+37i9dQZF1DX10zKzsJ2jva
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Songs to Sing in the Car
+</td>
+<td style="text-align:right;">
+9669026
+</td>
+<td style="text-align:left;">
+37i9dQZF1DWWMOmoXKqHTD
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+</tbody>
+</table>
+<p>The playlist with the most users is <em>Today’s Top Hits</em>. Kinda expected, right?</p>
+</div>
+<div id="brainstorming" class="section level3">
+<h3>Brainstorming</h3>
+<p>Now that we have our <strong>response variable</strong>: number of Followers, some questions comes to mind:</p>
+<ul>
+<li>What’s the distribution of it?</li>
+<li>What might be a contributing factor for a playlist to be successful?</li>
+</ul>
+<p>For the 1st question, we can look at some basic statistics.</p>
+<p>For the 2nd question, some brainstorming ideas as follows:</p>
+<ul>
+<li>Number of tracks</li>
+<li>Genre (to quantify, maybe pop%, EDA%, genre count, etc.)</li>
+<li>Mean and variance of track features (valence, tempo…)</li>
+<li>Mean and variance of track popularity</li>
+<li>Artists (maybe most popular artist %, Justin Bieber %, etc.)</li>
+</ul>
+<pre class="r"><code># Look at distribution of numeric features
+spotify_pl %&gt;% select(&quot;Followers&quot;, &quot;tracks.total&quot;) %&gt;% summary() %&gt;% kbl() %&gt;% kable_minimal()</code></pre>
+<table class=" lightable-minimal" style='font-family: "Trebuchet MS", verdana, sans-serif; margin-left: auto; margin-right: auto;'>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Followers
+</th>
+<th style="text-align:left;">
+tracks.total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Min. : 0
+</td>
+<td style="text-align:left;">
+Min. : 0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1st Qu.: 5596
+</td>
+<td style="text-align:left;">
+1st Qu.: 41.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Median : 110315
+</td>
+<td style="text-align:left;">
+Median : 53.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Mean : 510605
+</td>
+<td style="text-align:left;">
+Mean : 72.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3rd Qu.: 473377
+</td>
+<td style="text-align:left;">
+3rd Qu.: 88.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Max. :26782716
+</td>
+<td style="text-align:left;">
+Max. :851.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+NA’s :1
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p>Some findings from the statistics above:</p>
+<ul>
+<li>One of the records has number of followers missing, we may want to exclude it.</li>
+<li>There are playlists with 0 tracks in it. We may want to remove it from the list as well.</li>
+<li>Biggest playlist has 851 songs in it!</li>
+<li>Most popular playlist has 268 million followers, average is 0.5 million.</li>
+</ul>
+</div>
+<div id="download-track-features-in-each-playlist" class="section level3">
+<h3>Download track features in each playlist</h3>
+<p>Based on the previous brainstorming, I decide to download the track names, audio features, and artist information from each playlist. Because genre information is not available for each track but only for each artist, it is too time consuming at the time. So for the time being, we are only checking if the artist is in top 10 or top 20 followed artists.</p>
+<p>Also when downloading, we have to run in loops. So we are creating features at the same time when we download these data, follow the list and save them into a data frame.</p>
+<p>Some notes here worth mentioning: there are a few playlists that cannot get required track audio feature information, so the whole loop will fail. In this case we add an error handling code to replace these errors with the information of the first playlist on the list, and we can de-duplicate later.</p>
+<pre class="r"><code>library(data.table)
+
+# define top 10 and top 20 (11~20) most followed artists
+top10_artist = c(&quot;Ed Sheeran&quot;,&quot;Ariana Grande&quot;,&quot;Drake&quot;,&quot;Rihanna&quot;,&quot;Eminem&quot;,&quot;Justin Bieber&quot;,
+                 &quot;Billie Eilish&quot;,&quot;Taylor Swift&quot;,&quot;Imagine Dragons&quot;,&quot;Shawn Mendes&quot;)
+top20_artist = c(&quot;Queen&quot;,&quot;Post Malone&quot;,&quot;Coldplay&quot;,&quot;Maroon 5&quot;,&quot;Bruno Mars&quot;,
+                 &quot;Marshmello&quot;,&quot;Bad Bunny&quot;,&quot;Beyoncé&quot;,&quot;Ozuna&quot;,&quot;The Weekend&quot;)
+
+pt_top10_artist = paste(top10_artist, collapse=&quot;|&quot;)
+pt_top20_artist = paste(top20_artist, collapse=&quot;|&quot;)
+
+list1 = spotify_pl$id
+
+# replace error with the first row - we can de-duplicate later!
+#test_feature = get_playlist_audio_features(username, spotify_pl$id[1])
+
+# Create features for each 
+# compute mean and standard deviation of the track audio features
+# error handling - replace with a value if an error occurs instead of hault the whole process
+.f = function() {
+  spotify_pl_feature &lt;-
+    length(list1) %&gt;%
+    seq() %&gt;%
+    map(function(i) {
+      tryCatch(get_playlist_audio_features(username, list1[i]),
+               error = function(e){test_feature}) %&gt;%
+        select(playlist_id,track.artists,track.album.release_date,track.popularity,danceability,
+             valence,loudness,energy,speechiness,acousticness,instrumentalness,liveness,tempo) %&gt;%
+        rowwise %&gt;% 
+        mutate(artists_name = paste(track.artists$name, collapse = &#39;, &#39;),
+             track_age = 2020-as.numeric(substr(track.album.release_date,1,4)),
+             top10_ind = grepl(pt_top10_artist,artists_name),
+             top20_ind = grepl(pt_top20_artist,artists_name)) %&gt;% 
+        group_by(playlist_id) %&gt;% 
+        summarise(track_count = n(),
+                top10_pct = sum(top10_ind)/n(),
+                top20_pct = sum(top20_ind)/n(),
+                mean_track_age = mean(track_age),
+                mean_popularity = mean(track.popularity),
+                sd_popularity = sd(track.popularity),
+                mean_danceability = mean(danceability),
+                sd_danceability = sd(danceability),
+                mean_valence = mean(valence),
+                sd_valence = sd(valence),
+                mean_loudness = mean(loudness),
+                sd_loudness = sd(loudness),
+                mean_energy = mean(energy),
+                sd_energy = sd(energy),
+                mean_speechiness = mean(speechiness),
+                sd_speechiness = sd(speechiness),
+                mean_acousticness = mean(acousticness),
+                sd_acousticness = sd(acousticness),
+                mean_instrumentalness = mean(instrumentalness),
+                sd_instrumentalness = sd(instrumentalness),
+                mean_liveness = mean(liveness),
+                sd_liveness = sd(liveness),
+                mean_tempo = mean(tempo),
+                sd_tempo = sd(tempo)) 
+    }) %&gt;% 
+  reduce(rbind)
+}
+
+# remove duplicate rows
+spotify_pl_feature &lt;- distinct(spotify_pl_feature)
+
+# merge number of followers to the dataset
+spotify_pl_feature_1 &lt;- merge(x = spotify_pl_feature, y = spotify_pl, by.x = &quot;playlist_id&quot;, by.y = &quot;id&quot;, all.x = TRUE)
+
+#remove missing response variables
+spotify_pl_feature_2 &lt;- spotify_pl_feature_1 %&gt;% drop_na(Followers)
+
+head(spotify_pl_feature_2) %&gt;% kbl() %&gt;% scroll_box(width = &quot;700px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:700px; ">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+playlist_id
+</th>
+<th style="text-align:right;">
+track_count
+</th>
+<th style="text-align:right;">
+top10_pct
+</th>
+<th style="text-align:right;">
+top20_pct
+</th>
+<th style="text-align:right;">
+mean_track_age
+</th>
+<th style="text-align:right;">
+mean_popularity
+</th>
+<th style="text-align:right;">
+sd_popularity
+</th>
+<th style="text-align:right;">
+mean_danceability
+</th>
+<th style="text-align:right;">
+sd_danceability
+</th>
+<th style="text-align:right;">
+mean_valence
+</th>
+<th style="text-align:right;">
+sd_valence
+</th>
+<th style="text-align:right;">
+mean_loudness
+</th>
+<th style="text-align:right;">
+sd_loudness
+</th>
+<th style="text-align:right;">
+mean_energy
+</th>
+<th style="text-align:right;">
+sd_energy
+</th>
+<th style="text-align:right;">
+mean_speechiness
+</th>
+<th style="text-align:right;">
+sd_speechiness
+</th>
+<th style="text-align:right;">
+mean_acousticness
+</th>
+<th style="text-align:right;">
+sd_acousticness
+</th>
+<th style="text-align:right;">
+mean_instrumentalness
+</th>
+<th style="text-align:right;">
+sd_instrumentalness
+</th>
+<th style="text-align:right;">
+mean_liveness
+</th>
+<th style="text-align:right;">
+sd_liveness
+</th>
+<th style="text-align:right;">
+mean_tempo
+</th>
+<th style="text-align:right;">
+sd_tempo
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+public
+</th>
+<th style="text-align:right;">
+tracks.total
+</th>
+<th style="text-align:left;">
+uri
+</th>
+<th style="text-align:left;">
+href
+</th>
+<th style="text-align:right;">
+Followers
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+01WIu4Rst0xeZnTunWxUL7
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+8.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.5590000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.5190000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-22.078000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.2180000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.9400000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.9220000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.3570000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+70.1710
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Beyond the Music
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:01WIu4Rst0xeZnTunWxUL7" class="uri">spotify:playlist:01WIu4Rst0xeZnTunWxUL7</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/01WIu4Rst0xeZnTunWxUL7" class="uri">https://api.spotify.com/v1/playlists/01WIu4Rst0xeZnTunWxUL7</a>
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01WIu4Rst0xeZnTunWxUL7
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+17.384615
+</td>
+<td style="text-align:right;">
+5.784615
+</td>
+<td style="text-align:right;">
+16.97746
+</td>
+<td style="text-align:right;">
+0.5698923
+</td>
+<td style="text-align:right;">
+0.1228184
+</td>
+<td style="text-align:right;">
+0.5944923
+</td>
+<td style="text-align:right;">
+0.1706714
+</td>
+<td style="text-align:right;">
+-17.368585
+</td>
+<td style="text-align:right;">
+6.588808
+</td>
+<td style="text-align:right;">
+0.3847215
+</td>
+<td style="text-align:right;">
+0.1925929
+</td>
+<td style="text-align:right;">
+0.5742523
+</td>
+<td style="text-align:right;">
+0.3529564
+</td>
+<td style="text-align:right;">
+0.7745874
+</td>
+<td style="text-align:right;">
+0.2890518
+</td>
+<td style="text-align:right;">
+0.0812708
+</td>
+<td style="text-align:right;">
+0.1751106
+</td>
+<td style="text-align:right;">
+0.2896800
+</td>
+<td style="text-align:right;">
+0.1911063
+</td>
+<td style="text-align:right;">
+103.0664
+</td>
+<td style="text-align:right;">
+27.19660
+</td>
+<td style="text-align:left;">
+Beyond the Music
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:01WIu4Rst0xeZnTunWxUL7" class="uri">spotify:playlist:01WIu4Rst0xeZnTunWxUL7</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/01WIu4Rst0xeZnTunWxUL7" class="uri">https://api.spotify.com/v1/playlists/01WIu4Rst0xeZnTunWxUL7</a>
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+056jpfChuMP5D1NMMaDXRR
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+32.433333
+</td>
+<td style="text-align:right;">
+41.533333
+</td>
+<td style="text-align:right;">
+14.01165
+</td>
+<td style="text-align:right;">
+0.2817333
+</td>
+<td style="text-align:right;">
+0.0766955
+</td>
+<td style="text-align:right;">
+0.2376367
+</td>
+<td style="text-align:right;">
+0.1404016
+</td>
+<td style="text-align:right;">
+-6.679667
+</td>
+<td style="text-align:right;">
+1.240080
+</td>
+<td style="text-align:right;">
+0.9381333
+</td>
+<td style="text-align:right;">
+0.0442608
+</td>
+<td style="text-align:right;">
+0.1531000
+</td>
+<td style="text-align:right;">
+0.0774482
+</td>
+<td style="text-align:right;">
+0.0362595
+</td>
+<td style="text-align:right;">
+0.1637494
+</td>
+<td style="text-align:right;">
+0.2373693
+</td>
+<td style="text-align:right;">
+0.2700147
+</td>
+<td style="text-align:right;">
+0.4111000
+</td>
+<td style="text-align:right;">
+0.3592652
+</td>
+<td style="text-align:right;">
+138.3950
+</td>
+<td style="text-align:right;">
+30.91909
+</td>
+<td style="text-align:left;">
+Metallica: The Early Years
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:056jpfChuMP5D1NMMaDXRR" class="uri">spotify:playlist:056jpfChuMP5D1NMMaDXRR</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/056jpfChuMP5D1NMMaDXRR" class="uri">https://api.spotify.com/v1/playlists/056jpfChuMP5D1NMMaDXRR</a>
+</td>
+<td style="text-align:right;">
+5581
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+05dTMGk8MjnpQg3bKuoXcc
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0392157
+</td>
+<td style="text-align:right;">
+28.333333
+</td>
+<td style="text-align:right;">
+25.509804
+</td>
+<td style="text-align:right;">
+23.52222
+</td>
+<td style="text-align:right;">
+0.6227647
+</td>
+<td style="text-align:right;">
+0.1333777
+</td>
+<td style="text-align:right;">
+0.5818843
+</td>
+<td style="text-align:right;">
+0.2487075
+</td>
+<td style="text-align:right;">
+-10.154863
+</td>
+<td style="text-align:right;">
+3.355051
+</td>
+<td style="text-align:right;">
+0.5177647
+</td>
+<td style="text-align:right;">
+0.1722636
+</td>
+<td style="text-align:right;">
+0.0438824
+</td>
+<td style="text-align:right;">
+0.0226247
+</td>
+<td style="text-align:right;">
+0.3157198
+</td>
+<td style="text-align:right;">
+0.2621562
+</td>
+<td style="text-align:right;">
+0.0159534
+</td>
+<td style="text-align:right;">
+0.0689100
+</td>
+<td style="text-align:right;">
+0.1456392
+</td>
+<td style="text-align:right;">
+0.0927180
+</td>
+<td style="text-align:right;">
+112.3551
+</td>
+<td style="text-align:right;">
+23.56572
+</td>
+<td style="text-align:left;">
+1978
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:05dTMGk8MjnpQg3bKuoXcc" class="uri">spotify:playlist:05dTMGk8MjnpQg3bKuoXcc</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/05dTMGk8MjnpQg3bKuoXcc" class="uri">https://api.spotify.com/v1/playlists/05dTMGk8MjnpQg3bKuoXcc</a>
+</td>
+<td style="text-align:right;">
+383
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+070FVPBKvfu6M5tf4I9rt2
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+14.266667
+</td>
+<td style="text-align:right;">
+19.333333
+</td>
+<td style="text-align:right;">
+16.77094
+</td>
+<td style="text-align:right;">
+0.5718000
+</td>
+<td style="text-align:right;">
+0.1082470
+</td>
+<td style="text-align:right;">
+0.6476667
+</td>
+<td style="text-align:right;">
+0.1634449
+</td>
+<td style="text-align:right;">
+-8.185400
+</td>
+<td style="text-align:right;">
+2.789182
+</td>
+<td style="text-align:right;">
+0.6616333
+</td>
+<td style="text-align:right;">
+0.1873208
+</td>
+<td style="text-align:right;">
+0.0703133
+</td>
+<td style="text-align:right;">
+0.0757255
+</td>
+<td style="text-align:right;">
+0.2785237
+</td>
+<td style="text-align:right;">
+0.2226414
+</td>
+<td style="text-align:right;">
+0.0838208
+</td>
+<td style="text-align:right;">
+0.1881343
+</td>
+<td style="text-align:right;">
+0.2156467
+</td>
+<td style="text-align:right;">
+0.1799950
+</td>
+<td style="text-align:right;">
+121.5091
+</td>
+<td style="text-align:right;">
+37.75297
+</td>
+<td style="text-align:left;">
+The Blues Skies
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:070FVPBKvfu6M5tf4I9rt2" class="uri">spotify:playlist:070FVPBKvfu6M5tf4I9rt2</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/070FVPBKvfu6M5tf4I9rt2" class="uri">https://api.spotify.com/v1/playlists/070FVPBKvfu6M5tf4I9rt2</a>
+</td>
+<td style="text-align:right;">
+93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+08vPKM3pmoyF6crB2EtASQ
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+5.090909
+</td>
+<td style="text-align:right;">
+33.424242
+</td>
+<td style="text-align:right;">
+25.22775
+</td>
+<td style="text-align:right;">
+0.5740000
+</td>
+<td style="text-align:right;">
+0.1159356
+</td>
+<td style="text-align:right;">
+0.2690727
+</td>
+<td style="text-align:right;">
+0.1605065
+</td>
+<td style="text-align:right;">
+-8.634879
+</td>
+<td style="text-align:right;">
+2.497459
+</td>
+<td style="text-align:right;">
+0.4760303
+</td>
+<td style="text-align:right;">
+0.1494031
+</td>
+<td style="text-align:right;">
+0.0783909
+</td>
+<td style="text-align:right;">
+0.0908340
+</td>
+<td style="text-align:right;">
+0.4445588
+</td>
+<td style="text-align:right;">
+0.2727658
+</td>
+<td style="text-align:right;">
+0.0434047
+</td>
+<td style="text-align:right;">
+0.0996971
+</td>
+<td style="text-align:right;">
+0.1426606
+</td>
+<td style="text-align:right;">
+0.0653459
+</td>
+<td style="text-align:right;">
+121.5185
+</td>
+<td style="text-align:right;">
+29.02336
+</td>
+<td style="text-align:left;">
+Falling In Love
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:left;">
+<a href="spotify:playlist:08vPKM3pmoyF6crB2EtASQ" class="uri">spotify:playlist:08vPKM3pmoyF6crB2EtASQ</a>
+</td>
+<td style="text-align:left;">
+<a href="https://api.spotify.com/v1/playlists/08vPKM3pmoyF6crB2EtASQ" class="uri">https://api.spotify.com/v1/playlists/08vPKM3pmoyF6crB2EtASQ</a>
+</td>
+<td style="text-align:right;">
+6530
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="explore-the-dataset" class="section level3">
+<h3>Explore the Dataset</h3>
+<p>Now that we have our data downloaded and feature created, let’s do some EDA on the data we’ve got!</p>
+<div id="response-variable" class="section level4">
+<h4>Response Variable</h4>
+<p>Our definition of “successful” is the number of followers in our dataset. We have removed the missing from our dataset, now let’s check its distribution:</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(spotify_pl_feature_2, aes(x=spotify_pl_feature_2$Followers)) + 
+  geom_histogram() +
+  #geom_density() + 
+  xlab(&quot;Followers&quot;) + 
+  ggtitle(&quot;Distribution of Followers&quot;)</code></pre>
+<p><img src="/post/2020-09-21-spotify-analysis-3-1_files/figure-html/resp%20var%20dist-1.png" width="672" />
+The distribution of the followers is very skewed to the right, meaning mostly concentrated with a smaller number of followers, but there are a few outliers that have a looooooot of followers.</p>
+<p>Check if the log-transformed form is a Normal distribution:</p>
+<pre class="r"><code>ggplot(spotify_pl_feature_2, aes(x=log(spotify_pl_feature_2$Followers))) + 
+  geom_histogram() +
+  #geom_density(alpha=.2, fill=&quot;#FF6666&quot;) + 
+  xlab(&quot;Followers&quot;) + 
+  ggtitle(&quot;Distribution of Followers&quot;)</code></pre>
+<p><img src="/post/2020-09-21-spotify-analysis-3-1_files/figure-html/resp%20var%20dist%202-1.png" width="672" /></p>
+<p>After log-transformation, although it’s not perfectly “bell-shaped”, it’s very much better than before. Being closer to a “Normal distribution” after the transformation makes it more robust, and will better fit the assumption of a Normally distributed response variable for Linear Regression.</p>
+</div>
+<div id="independent-variables" class="section level4">
+<h4>Independent Variables</h4>
+<p>Some of the variables have NA’s in it. I decide to <strong>impute them with median</strong> because 1) the number of missing is relatively small (20 out of 1233) so impact is not very big, and 2) median is less affected by skewness of the distribution than mean.</p>
+<pre class="r"><code>spotify_pl_feature_3 &lt;- data.frame(lapply(spotify_pl_feature_2,function(x) {
+    if(is.numeric(x)) ifelse(is.na(x),median(x,na.rm=T),x) else x}))
+
+summary(spotify_pl_feature_3)</code></pre>
+<pre><code>##  playlist_id         track_count        top10_pct         top20_pct      
+##  Length:1233        Min.   :   1.00   Min.   :0.00000   Min.   :0.00000  
+##  Class :character   1st Qu.:  40.00   1st Qu.:0.00000   1st Qu.:0.00000  
+##  Mode  :character   Median :  51.00   Median :0.00000   Median :0.00000  
+##                     Mean   :  71.47   Mean   :0.01716   Mean   :0.01168  
+##                     3rd Qu.:  87.00   3rd Qu.:0.00000   3rd Qu.:0.00000  
+##                     Max.   :1287.00   Max.   :1.00000   Max.   :0.96000  
+##  mean_track_age   mean_popularity sd_popularity   mean_danceability
+##  Min.   : 0.000   Min.   : 0.00   Min.   : 0.00   Min.   :0.05942  
+##  1st Qu.: 3.475   1st Qu.:20.60   1st Qu.:13.61   1st Qu.:0.50491  
+##  Median : 9.154   Median :32.86   Median :19.02   Median :0.57064  
+##  Mean   :11.753   Mean   :33.88   Mean   :18.61   Mean   :0.56054  
+##  3rd Qu.:17.015   3rd Qu.:46.83   3rd Qu.:24.17   3rd Qu.:0.65164  
+##  Max.   :63.938   Max.   :85.16   Max.   :35.97   Max.   :0.81474  
+##  sd_danceability    mean_valence        sd_valence       mean_loudness    
+##  Min.   :0.04706   Min.   :0.006963   Min.   :0.009736   Min.   :-31.410  
+##  1st Qu.:0.11049   1st Qu.:0.364720   1st Qu.:0.175884   1st Qu.:-10.972  
+##  Median :0.12577   Median :0.477987   Median :0.203785   Median : -8.255  
+##  Mean   :0.12711   Mean   :0.459886   Mean   :0.197188   Mean   : -9.972  
+##  3rd Qu.:0.14237   3rd Qu.:0.568905   3rd Qu.:0.223319   3rd Qu.: -6.397  
+##  Max.   :0.31818   Max.   :0.850000   Max.   :0.356667   Max.   : -2.546  
+##   sd_loudness       mean_energy        sd_energy       mean_speechiness 
+##  Min.   : 0.8389   Min.   :0.03431   Min.   :0.03178   Min.   :0.02265  
+##  1st Qu.: 2.1052   1st Qu.:0.42471   1st Qu.:0.12683   1st Qu.:0.04683  
+##  Median : 2.7958   Median :0.60765   Median :0.15550   Median :0.06594  
+##  Mean   : 3.0778   Mean   :0.55516   Mean   :0.15669   Mean   :0.11538  
+##  3rd Qu.: 3.6473   3rd Qu.:0.71446   3rd Qu.:0.18629   3rd Qu.:0.10014  
+##  Max.   :13.8671   Max.   :0.96921   Max.   :0.41877   Max.   :0.94000  
+##  sd_speechiness     mean_acousticness   sd_acousticness   
+##  Min.   :0.004295   Min.   :0.0003119   Min.   :0.001191  
+##  1st Qu.:0.027393   1st Qu.:0.1532790   1st Qu.:0.149093  
+##  Median :0.052962   Median :0.2765392   Median :0.220863  
+##  Mean   :0.069510   Mean   :0.3692849   Mean   :0.208510  
+##  3rd Qu.:0.092286   3rd Qu.:0.5618720   3rd Qu.:0.272834  
+##  Max.   :0.510973   Max.   :0.9947515   Max.   :0.469068  
+##  mean_instrumentalness sd_instrumentalness mean_liveness      sd_liveness     
+##  Min.   :0.000000      Min.   :0.00000     Min.   :0.05446   Min.   :0.01179  
+##  1st Qu.:0.008631      1st Qu.:0.03674     1st Qu.:0.15295   1st Qu.:0.10481  
+##  Median :0.038325      Median :0.12736     Median :0.17444   Median :0.13246  
+##  Mean   :0.145436      Mean   :0.14111     Mean   :0.18806   Mean   :0.13669  
+##  3rd Qu.:0.131993      3rd Qu.:0.22484     3rd Qu.:0.20312   3rd Qu.:0.16368  
+##  Max.   :0.952285      Max.   :0.43395     Max.   :0.81731   Max.   :0.38269  
+##    mean_tempo        sd_tempo          name            public       
+##  Min.   : 38.84   Min.   : 1.058   Length:1233        Mode:logical  
+##  1st Qu.:113.84   1st Qu.:25.871   Class :character   TRUE:1233     
+##  Median :118.94   Median :28.668   Mode  :character                 
+##  Mean   :117.78   Mean   :28.364                                    
+##  3rd Qu.:123.56   3rd Qu.:31.363                                    
+##  Max.   :161.96   Max.   :65.636                                    
+##   tracks.total        uri                href             Followers       
+##  Min.   :  3.00   Length:1233        Length:1233        Min.   :       6  
+##  1st Qu.: 40.00   Class :character   Class :character   1st Qu.:    2499  
+##  Median : 51.00   Mode  :character   Mode  :character   Median :   90008  
+##  Mean   : 70.87                                         Mean   :  499103  
+##  3rd Qu.: 86.00                                         3rd Qu.:  456483  
+##  Max.   :851.00                                         Max.   :26782716</code></pre>
+<p>To be continued!
+Plan for next step:
+* Fit a linear regression model and a random forest regressor
+* Variance importance ranking
+* Model comparison and discussion</p>
+<p>Thanks for reading, and again, I hope you enjoyed it! Also, if you have any suggestions or ideas, please don’t hesitate to write me a message under <em>Contact</em> tab 😊</p>
+</div>
+</div>
+<div id="reference" class="section level3">
+<h3>Reference:</h3>
+<p>{spotifyr} package documentation: <a href="https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1" class="uri">https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1</a>
+<a href="https://github.com/charlie86/spotifyr" class="uri">https://github.com/charlie86/spotifyr</a></p>
+<p>{spotifyr} function references: <a href="https://www.rcharlie.com/spotifyr/reference/index.html" class="uri">https://www.rcharlie.com/spotifyr/reference/index.html</a></p>
+<p>Spotify Playlist Data Analysis: <a href="https://toledy.github.io/spotify/" class="uri">https://toledy.github.io/spotify/</a>
+(For the idea of this analysis. Original post coded in Python)</p>
+<p>Most followed artists on Spotify: <a href="https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify" class="uri">https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify</a></p>
+</div>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/data-science" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">data science</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/r" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">R</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/spotify" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Spotify</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/music" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">music</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/2020-09-02-spotify-analysis-2/">Spotify Analysis 2 - Music I listen To</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/2020-08-25-spotify-analysis-1/">Spotify Analysis 1 - the Beatles</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy;  We Are All Stardust 2020 
+  </a>
+    <div>
+
+
+
+<a href="https://www.facebook.com/fujinhuizi/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/fujinhuizi/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/jinhuizi-fu" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

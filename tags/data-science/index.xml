@@ -6,10 +6,19 @@
     <description>Recent content in data science on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 10:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2020 10:30:00 -0500</lastBuildDate>
     
 	<atom:link href="/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spotify Analysis 3.1 - What Makes a Playlist Successful?</title>
+      <link>/post/2020-09-21-spotify-analysis-3-1/</link>
+      <pubDate>Mon, 02 Nov 2020 10:30:00 -0500</pubDate>
+      
+      <guid>/post/2020-09-21-spotify-analysis-3-1/</guid>
+      <description>I already wrote two posts on Spotify analysis - one on the Beatles tracks and albums, and another one for my own listening habits. I had a lot of fun doing these exploratory data analysis, and I decide to make it a trilogy. In this new post, I’m going to take one step further: I want to find out what makes a playlist successful, and try to predict how successful a playlist will be based on its known features.</description>
+    </item>
     
     <item>
       <title>Spotify Analysis 2 - Music I listen To</title>
