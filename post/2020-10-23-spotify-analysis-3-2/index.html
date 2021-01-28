@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful? | We Are All Stardust</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+<link rel="shortcut icon" href="/images/favicon_jf.jpg" type="image/x-icon" />
+
+
+    
+
+    
+    
+    <meta property="og:title" content="[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?" />
+<meta property="og:description" content="In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.
+Split Training and Testing Datasets Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2020-10-23-spotify-analysis-3-2/" />
+<meta property="article:published_time" content="2020-11-23T10:30:00-05:00" />
+<meta property="article:modified_time" content="2020-11-23T10:30:00-05:00" />
+<meta itemprop="name" content="[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?">
+<meta itemprop="description" content="In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.
+Split Training and Testing Datasets Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data.">
+<meta itemprop="datePublished" content="2020-11-23T10:30:00-05:00" />
+<meta itemprop="dateModified" content="2020-11-23T10:30:00-05:00" />
+<meta itemprop="wordCount" content="1100">
+
+
+
+<meta itemprop="keywords" content="data science,R,Spotify,music," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?"/>
+<meta name="twitter:description" content="In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.
+Split Training and Testing Datasets Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        We Are All Stardust
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/post/" title="Blogs page">
+              Blogs
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Contact page">
+              Contact
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+<a href="https://www.facebook.com/fujinhuizi/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/fujinhuizi/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/jinhuizi-fu" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        BLOGS
+      </aside>
+      
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=/post/2020-10-23-spotify-analysis-3-2/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=/post/2020-10-23-spotify-analysis-3-2/&amp;text=[Under%20Construction]%20Spotify%20Analysis%203.2%20-%20What%20Makes%20a%20Playlist%20Successful?" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=/post/2020-10-23-spotify-analysis-3-2/&amp;title=[Under%20Construction]%20Spotify%20Analysis%203.2%20-%20What%20Makes%20a%20Playlist%20Successful?" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?</h1>
+      
+      <p class="tracked">
+          By <strong>
+          
+              Jinhuizi Fu
+          
+          </strong>
+      </p>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-11-23T10:30:00-05:00">November 23, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+
+<p>In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.</p>
+<div id="split-training-and-testing-datasets" class="section level3">
+<h3>Split Training and Testing Datasets</h3>
+<p>Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data.</p>
+<pre class="r"><code># remove columns that won&#39;t be included in the modeling process
+spotify_pl_feature_4 &lt;- subset(spotify_pl_feature_3, select = -c(playlist_id,X,name,tracks.total,uri,href) )
+
+library(rsample)      # data splitting 
+# Use set.seed for reproducibility
+set.seed(123)
+pl_split &lt;- initial_split(spotify_pl_feature_4, prop = .8)
+pl_train &lt;- training(pl_split)  # 987 observations
+pl_test  &lt;- testing(pl_split)   # 246 observations</code></pre>
+</div>
+<div id="predictive-models-to-find-out-what-makes-a-playlist-successful" class="section level2">
+<h2>Predictive Models to find out what makes a playlist successful</h2>
+<p>Build 2 models to achieve the goal of finding out what makes a playlist successful.</p>
+<div id="model-1-using-multiple-linear-regression" class="section level3">
+<h3>Model 1: using Multiple Linear Regression</h3>
+<p>The first model we are going to build is Linear Regression.</p>
+<ul>
+<li><p>Response variable: log transformed of number of followers.</p></li>
+<li><p>Independent variables:
+** track count
+** percentage of tracks by top 10 artists
+** percentage of tracks by top 20 artists
+** mean track age
+** mean and standard deviation of track features (e.g. tempo, valence, …)</p></li>
+<li><p>Missing values handled in the last post: impute with median.</p></li>
+<li><p>Method of Least Squares Estimation: minimize Residual Sum of Squares.</p></li>
+<li><p>Step-wise selection of in-model variables.</p></li>
+</ul>
+<p>Assumptions of Linear Regression:</p>
+<ul>
+<li><p>There is a linear relationship between response variables and predictors</p></li>
+<li><p>Residuals are independent</p></li>
+<li><p>Residuals are normally distributed</p></li>
+<li><p>Residuals has constant variance</p></li>
+</ul>
+<p>Advantages of Linear Regression:</p>
+<ul>
+<li><p>Easy to interpret</p></li>
+<li><p>Computational efficient</p></li>
+</ul>
+<div id="baseline-model-include-all-variables" class="section level4">
+<h4>Baseline model: include all variables</h4>
+<p>First, we build a baseline model that includes all variables. There might be some overfitting, but we just want to use this model to get some ideas about the model fit. The R-squared from this model could be used to compare with the results of other models.</p>
+<pre class="r"><code>library(caret)
+# include all possible main effects
+model_1 &lt;- lm(Followers ~ ., data = pl_train) 
+summary(model_1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Followers ~ ., data = pl_train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2654992  -404884   -96693   188127 13594842 
+## 
+## Coefficients: (1 not defined because of singularities)
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           -254676.3  1165862.8  -0.218   0.8271    
+## track_count              2329.1      481.1   4.842  1.5e-06 ***
+## top10_pct             1329656.3   528326.2   2.517   0.0120 *  
+## top20_pct              533306.6   708610.6   0.753   0.4519    
+## mean_track_age           9555.0     4344.0   2.200   0.0281 *  
+## mean_popularity         31214.3     2302.7  13.556  &lt; 2e-16 ***
+## sd_popularity          -13238.9     5730.9  -2.310   0.0211 *  
+## mean_danceability      124657.4   679167.4   0.184   0.8544    
+## sd_danceability        287321.7  1556242.0   0.185   0.8536    
+## mean_valence          -243380.0   452862.3  -0.537   0.5911    
+## sd_valence             363483.9  1080330.2   0.336   0.7366    
+## mean_loudness            -412.5    27577.4  -0.015   0.9881    
+## sd_loudness            -23133.8    48156.8  -0.480   0.6311    
+## mean_energy            -37535.9   856089.8  -0.044   0.9650    
+## sd_energy              234506.7  1343438.4   0.175   0.8615    
+## mean_speechiness       408895.7   444915.6   0.919   0.3583    
+## sd_speechiness        -550449.8   791118.8  -0.696   0.4867    
+## mean_acousticness      176746.9   435830.3   0.406   0.6852    
+## sd_acousticness       -150283.9   711820.8  -0.211   0.8328    
+## mean_instrumentalness -242443.4   268505.9  -0.903   0.3668    
+## sd_instrumentalness    395847.1   392151.0   1.009   0.3130    
+## mean_liveness         -524918.7   813588.1  -0.645   0.5190    
+## sd_liveness           -509873.3   967376.6  -0.527   0.5983    
+## mean_tempo                104.6     4462.9   0.023   0.9813    
+## sd_tempo               -10029.0     6678.9  -1.502   0.1335    
+## publicTRUE                   NA         NA      NA       NA    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 999300 on 962 degrees of freedom
+## Multiple R-squared:  0.2561, Adjusted R-squared:  0.2375 
+## F-statistic:  13.8 on 24 and 962 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>R-squared is 0.2561 for the baseline model. Looking at the p-values of each variable, not all of them are significant. Now score on the test dataset and see how the R-squared turns out:</p>
+<pre class="r"><code># check R^2 on test data
+predictions &lt;- model_1 %&gt;% predict(pl_test)
+data.frame( R2 = R2(predictions, pl_test$Followers),
+            RMSE = RMSE(predictions, pl_test$Followers),
+            MAE = MAE(predictions, pl_test$Followers))</code></pre>
+<pre><code>##          R2    RMSE      MAE
+## 1 0.1197621 1738864 586625.5</code></pre>
+<p>Principle Component Analysis
+Principle Component Analysis (PCA) is another way to reduce the number of predictors. Each component is a linear combination of all 949 orginal predictors. The components are ordered in such a way so that the amount of captured observed variance descreases. Linear regression is performed on the principal components of the PCA transformation. We attempt different numbers of PCA components from 1 to 100 and choose the optimal number of PCA components according to test R2 score.</p>
+<p>We achieve the best R2 test score of 0.1307 with 30 PCA components. Although we gain a higher test R2 score and also have less predictors, we lose interpretability. We cannot pinpoint how a change in one predictor will change the response varibable because each component is a linear combination of all original columns.</p>
+</div>
+</div>
+<div id="model-2-using-random-forest-regressor" class="section level3">
+<h3>Model 2: using Random Forest Regressor</h3>
+<p>The second model we are going to build is a Random Forest Regressor. It builds multiple decision trees and “ensemble” them together to get a more accurate and robust model.</p>
+<p>Before we get into the details, let’s do a brief introduction to the Random Forest Regressor.</p>
+<p>Advantages of Random Forest:</p>
+<ul>
+<li>Efficient</li>
+<li>Accurate - compare to individual trees</li>
+<li>No distribution requirement on response variable</li>
+<li>Handles missing value well</li>
+</ul>
+<pre class="r"><code>library(randomForest) # basic implementation
+library(ranger)       # a faster implementation of randomForest
+library(caret)        # an aggregator package for performing many machine learning models
+#library(h2o)          # an extremely fast java-based platform
+
+# for reproduciblity
+set.seed(123)
+
+# default RF model
+m1 &lt;- randomForest(
+  formula = Followers ~ track_count + top10_pct + top20_pct + mean_track_age + mean_popularity + sd_popularity + mean_danceability + sd_danceability + mean_valence + sd_valence + mean_loudness + sd_loudness + mean_energy + sd_energy + mean_speechiness + sd_speechiness + mean_acousticness + sd_acousticness + mean_instrumentalness + sd_instrumentalness + mean_liveness + sd_liveness + mean_tempo + sd_tempo,
+  data = pl_train
+)
+
+m1</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = Followers ~ track_count + top10_pct +      top20_pct + mean_track_age + mean_popularity + sd_popularity +      mean_danceability + sd_danceability + mean_valence + sd_valence +      mean_loudness + sd_loudness + mean_energy + sd_energy + mean_speechiness +      sd_speechiness + mean_acousticness + sd_acousticness + mean_instrumentalness +      sd_instrumentalness + mean_liveness + sd_liveness + mean_tempo +      sd_tempo, data = pl_train) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 8
+## 
+##           Mean of squared residuals: 920994843834
+##                     % Var explained: 29.61</code></pre>
+<pre class="r"><code>plot(m1)</code></pre>
+<p><img src="/post/2020-10-23-spotify-analysis-3-2_files/figure-html/random%20forest-1.png" width="672" /></p>
+<pre class="r"><code># number of trees with lowest MSE
+which.min(m1$mse)</code></pre>
+<pre><code>## [1] 330</code></pre>
+<pre class="r"><code>## [1] 204
+
+# RMSE of this optimal random forest
+sqrt(m1$mse[which.min(m1$mse)])</code></pre>
+<pre><code>## [1] 954666.2</code></pre>
+<pre class="r"><code>## [1] 1194562</code></pre>
+<p>Thanks for reading, and again, I hope you enjoyed it! Also, if you have any suggestions or ideas, please don’t hesitate to write me a message under <em>Contact</em> tab 😊</p>
+</div>
+</div>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/data-science" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">data science</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/r" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">R</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/spotify" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Spotify</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/music" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">music</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/post/2020-09-21-spotify-analysis-3-1/">Spotify Analysis 3.1 - What Makes a Playlist Successful?</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/2020-09-02-spotify-analysis-2/">Spotify Analysis 2 - Music I listen To</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/post/2020-08-25-spotify-analysis-1/">Spotify Analysis 1 - the Beatles</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="/" >
+    &copy;  We Are All Stardust 2021 
+  </a>
+    <div>
+
+
+
+<a href="https://www.facebook.com/fujinhuizi/" target="_blank" class="link-transition facebook link dib z-999 pt3 pt0-l mr1" title="Facebook link" rel="noopener" aria-label="follow on Facebook——Opens in a new window">
+  <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+<a href="https://www.linkedin.com/in/fujinhuizi/" target="_blank" class="link-transition linkedin link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" rel="noopener" aria-label="follow on LinkedIn——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+<a href="https://github.com/jinhuizi-fu" target="_blank" class="link-transition github link dib z-999 pt3 pt0-l mr1" title="Github link" rel="noopener" aria-label="follow on Github——Opens in a new window">
+  <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000" width="8px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+</span></a>
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

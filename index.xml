@@ -6,10 +6,30 @@
     <description>Recent content in Hi! I&#39;m Huizi on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Nov 2020 10:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 28 Jan 2021 14:30:00 -0500</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ernest Chausson&#39;s beautifu Poème and Turgenev&#39;s story</title>
+      <link>/post/2021-01-28-chausson-turgenev/</link>
+      <pubDate>Thu, 28 Jan 2021 14:30:00 -0500</pubDate>
+      
+      <guid>/post/2021-01-28-chausson-turgenev/</guid>
+      <description>Chausson composed Poème, a one movement violin-orchestra piece 3 years before he died. So beautiful, mysterious, and sexy, this is one of my favouite music ever.
+His inspiration came from Ivan Turgenev’s novel, The song for triumphant love. I spent an hour to read this novel one night. It is an interesting story. It’s about 2 friends, one of them a painter and the other a musician, fell in love with same woman.</description>
+    </item>
+    
+    <item>
+      <title>[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?</title>
+      <link>/post/2020-10-23-spotify-analysis-3-2/</link>
+      <pubDate>Mon, 23 Nov 2020 10:30:00 -0500</pubDate>
+      
+      <guid>/post/2020-10-23-spotify-analysis-3-2/</guid>
+      <description>In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.
+Split Training and Testing Datasets Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data.</description>
+    </item>
     
     <item>
       <title>Spotify Analysis 3.1 - What Makes a Playlist Successful?</title>

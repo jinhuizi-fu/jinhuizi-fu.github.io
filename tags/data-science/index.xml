@@ -6,10 +6,20 @@
     <description>Recent content in data science on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Nov 2020 10:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2020 10:30:00 -0500</lastBuildDate>
     
 	<atom:link href="/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[Under Construction] Spotify Analysis 3.2 - What Makes a Playlist Successful?</title>
+      <link>/post/2020-10-23-spotify-analysis-3-2/</link>
+      <pubDate>Mon, 23 Nov 2020 10:30:00 -0500</pubDate>
+      
+      <guid>/post/2020-10-23-spotify-analysis-3-2/</guid>
+      <description>In the last post, we discussed about the goal of this project (find out what makes a playlist successful), and sourced data through Spotify API. In this post, we will continue working towards this goal by building 2 models. After that, we’re going to look at the variable importance, as well as compare the methods.
+Split Training and Testing Datasets Create training (80%) and test (20%) sets for the spotify_pl_feature_1 data.</description>
+    </item>
     
     <item>
       <title>Spotify Analysis 3.1 - What Makes a Playlist Successful?</title>
