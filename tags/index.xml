@@ -6,10 +6,24 @@
     <description>Recent content in Tags on We Are All Stardust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 Jan 2021 14:30:00 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 22 Sep 2021 14:30:00 -0500</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>happy</title>
+      <link>/tags/happy/</link>
+      <pubDate>Wed, 22 Sep 2021 14:30:00 -0500</pubDate>
+      
+      <guid>/tags/happy/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>poem</title>
+      <link>/tags/poem/</link>
+      <pubDate>Wed, 22 Sep 2021 14:30:00 -0500</pubDate>
+      
+      <guid>/tags/poem/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>literature</title>
